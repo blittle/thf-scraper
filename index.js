@@ -55,12 +55,12 @@ var parsePage = function(page, id, callback) {
 
 var login = function(page, callback) {
 	//console.log('\tlogging in');
-	page.evaluate(function() {
-		document.querySelector('#txtUsername').value = user;
-		document.querySelector('#txtPassword').value = pass;
-		document.querySelector('input[type=submit]').click()
-		return document.querySelector('input[type=submit]');
-	}, function() {
+	page.evaluate(new Function(
+		"document.querySelector('#txtUsername').value = '" + user + "';" +
+		"document.querySelector('#txtPassword').value = '" + pass + "';" +
+		"document.querySelector('input[type=submit]').click();" +
+		"document.querySelector('input[type=submit]');"
+	), function() {
 		setTimeout(callback, 2000);
 	})
 }
